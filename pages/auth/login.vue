@@ -31,7 +31,7 @@
                 required
               />
             </div>
-            <Button type="button" variant="outline">
+            <Button @click="authenticate" type="button" variant="outline">
               <div class="flex items-center">
                 <Icon name="radix-icons:github-logo" class="mr-1"></Icon>
                 Github
@@ -67,4 +67,9 @@ const form = ref<registerForm>({
   password: "",
   email: "",
 });
+
+const authenticate = () => {
+  window.location.href = "/api/auth/github";
+  console.log(form.value);
+};
 </script>
