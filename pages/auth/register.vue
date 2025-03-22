@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen">
-    <form action="">
+    <form @submit.prevent="onSubmit" action="">
       <Card class="mx-auto max-w-sm w-full">
         <CardHeader>
           <CardTitle class="text-2xl"> Register </CardTitle>
@@ -81,5 +81,19 @@ const form = ref<registerForm>({
 
 const authenticate = () => {
   window.location.href = "/api/auth/github";
+};
+
+const onSubmit = async () => {
+  try {
+    console.log(form.value);
+
+    $fetch("/api/auth/register", {
+      method: "POST",
+      body: form.value,
+    });
+    navigateTo("/");
+  } catch (error) {
+    console.log(error, "Error");
+  }
 };
 </script>

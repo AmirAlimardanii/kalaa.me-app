@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen">
-    <form action="">
+    <form @submit.prevent="onSubmit" action="">
       <Card class="mx-auto max-w-sm w-full">
         <CardHeader>
           <CardTitle class="text-2xl"> Login </CardTitle>
@@ -58,12 +58,12 @@
 </template>
 
 <script setup lang="ts">
-type registerForm = {
+type loginForm = {
   password: string;
   email: string;
 };
 
-const form = ref<registerForm>({
+const form = ref<loginForm>({
   password: "",
   email: "",
 });
@@ -71,5 +71,17 @@ const form = ref<registerForm>({
 const authenticate = () => {
   window.location.href = "/api/auth/github";
   console.log(form.value);
+};
+
+const onSubmit = async () => {
+  try {
+    $fetch("/api/auth/login", {
+      method: "POST",
+      body: form.value,
+    });
+    navigateTo("/");
+  } catch (error) {
+    console.log(error, "error");
+  }
 };
 </script>
