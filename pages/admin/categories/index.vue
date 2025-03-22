@@ -1,5 +1,9 @@
 <template>
-  <div>admin categories</div>
+  <div class="flex-col">
+    <div class="p-8 pt-6">
+      <AdminCategoryClient></AdminCategoryClient>
+    </div>
+  </div>
 </template>
 
 <script setup>
