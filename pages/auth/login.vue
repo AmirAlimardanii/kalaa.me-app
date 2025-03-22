@@ -41,7 +41,9 @@
         </CardContent>
 
         <CardFooter class="flex-col space-y-2">
-          <Button type="submit" class="w-full"> Login </Button>
+          <Button :disabled="isLoading" type="submit" class="w-full">
+            Login
+          </Button>
 
           <p class="text-sm">
             Dont have an account?
@@ -58,6 +60,8 @@
 </template>
 
 <script setup lang="ts">
+const { showMessage, toggleLoading, isLoading, showError } = useStore();
+
 type loginForm = {
   password: string;
   email: string;
@@ -70,18 +74,27 @@ const form = ref<loginForm>({
 
 const authenticate = () => {
   window.location.href = "/api/auth/github";
-  console.log(form.value);
 };
 
 const onSubmit = async () => {
   try {
-    $fetch("/api/auth/login", {
+    toggleLoading(true);
+
+    await $fetch("/api/auth/login", {
       method: "POST",
       body: form.value,
     });
-    navigateTo("/");
+    showMessage({
+      title: "Welcome Back :)",
+      variant: "default",
+    });
+
+    window.location.href = "/";
   } catch (error) {
-    console.log(error, "error");
+    const err = handleError(error);
+    showError(err);
+  } finally {
+    toggleLoading(false);
   }
 };
 </script>
