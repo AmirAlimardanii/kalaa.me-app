@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen">
-    <form action="">
+    <form @submit.prevent="onSubmit" action="">
       <Card class="mx-auto max-w-sm w-full">
         <CardHeader>
           <CardTitle class="text-2xl"> Register </CardTitle>
@@ -40,7 +40,7 @@
                 required
               />
             </div>
-            <Button type="button" variant="outline">
+            <Button @click="authenticate" type="button" variant="outline">
               <div class="flex items-center">
                 <Icon name="radix-icons:github-logo" class="mr-1"></Icon>
                 Github
@@ -78,4 +78,22 @@ const form = ref<registerForm>({
   email: "",
   name: "",
 });
+
+const authenticate = () => {
+  window.location.href = "/api/auth/github";
+};
+
+const onSubmit = async () => {
+  try {
+    console.log(form.value);
+
+    $fetch("/api/auth/register", {
+      method: "POST",
+      body: form.value,
+    });
+    navigateTo("/");
+  } catch (error) {
+    console.log(error, "Error");
+  }
+};
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen">
-    <form action="">
+    <form @submit.prevent="onSubmit" action="">
       <Card class="mx-auto max-w-sm w-full">
         <CardHeader>
           <CardTitle class="text-2xl"> Login </CardTitle>
@@ -31,7 +31,7 @@
                 required
               />
             </div>
-            <Button type="button" variant="outline">
+            <Button @click="authenticate" type="button" variant="outline">
               <div class="flex items-center">
                 <Icon name="radix-icons:github-logo" class="mr-1"></Icon>
                 Github
@@ -41,7 +41,9 @@
         </CardContent>
 
         <CardFooter class="flex-col space-y-2">
-          <Button type="submit" class="w-full"> Login </Button>
+          <Button :disabled="isLoading" type="submit" class="w-full">
+            Login
+          </Button>
 
           <p class="text-sm">
             Dont have an account?
@@ -58,13 +60,41 @@
 </template>
 
 <script setup lang="ts">
-type registerForm = {
+const { showMessage, toggleLoading, isLoading, showError } = useStore();
+
+type loginForm = {
   password: string;
   email: string;
 };
 
-const form = ref<registerForm>({
+const form = ref<loginForm>({
   password: "",
   email: "",
 });
+
+const authenticate = () => {
+  window.location.href = "/api/auth/github";
+};
+
+const onSubmit = async () => {
+  try {
+    toggleLoading(true);
+
+    await $fetch("/api/auth/login", {
+      method: "POST",
+      body: form.value,
+    });
+    showMessage({
+      title: "Welcome Back :)",
+      variant: "default",
+    });
+
+    window.location.href = "/";
+  } catch (error) {
+    const err = handleError(error);
+    showError(err);
+  } finally {
+    toggleLoading(false);
+  }
+};
 </script>
