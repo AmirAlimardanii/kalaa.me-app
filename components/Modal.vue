@@ -1,5 +1,5 @@
 <template>
-  <Dialog :open="ispen" @update:open="emits('closeModal')">
+  <Dialog :open="props.isModalOpen">
     <DialogContent>
       <DialogHeader>
         <DialogTitle v-if="title">{{ title }}</DialogTitle>
@@ -24,9 +24,4 @@ interface modalProps {
 const props = defineProps<modalProps>();
 
 const emits = defineEmits(["closeModal"]);
-
-const ispen = computed({
-  get: () => props.isModalOpen,
-  set: (value) => emits("closeModal"),
-});
 </script>

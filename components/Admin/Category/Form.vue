@@ -2,7 +2,7 @@
   <div>
     <div class="flex items-center justify-between">
       <Heading :title="title" :description="description" />
-      <NuxtLink to="/admin/categories/new">
+      <div>
         <Button
           v-if="isEditing"
           variant="destructive"
@@ -12,10 +12,12 @@
         >
           <Icon name="lucide:trash" class="w-4 h-4" />
         </Button>
-        <Button @click="onSubmit" :disabled="isLoading" size="lg">
-          {{ action }}
-        </Button>
-      </NuxtLink>
+        <NuxtLink to="/admin/categories/new">
+          <Button @click="onSubmit" :disabled="isLoading" size="lg">
+            {{ action }}
+          </Button>
+        </NuxtLink>
+      </div>
     </div>
     <Separator class="my-4" />
 
