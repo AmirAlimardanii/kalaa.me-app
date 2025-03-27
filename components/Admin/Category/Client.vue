@@ -8,12 +8,17 @@
         </Button>
       </NuxtLink>
     </div>
-    <div v-for="category in categories">
-      <div>{{ category.name }}</div>
-    </div>
+    <DataTable
+      class="mt-4"
+      v-if="status !== 'pending'"
+      :data="categories"
+      :columns="columns"
+    />
   </div>
 </template>
 
 <script setup>
-const { data: categories } = await useFetch("/api/admin/categories");
+import { columns } from "~/components/Admin/Category/column";
+const { data: categories, status } = await useFetch("/api/admin/categories");
+console.log(categories, columns);
 </script>
