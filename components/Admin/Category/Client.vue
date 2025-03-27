@@ -20,5 +20,4 @@
 <script setup>
 import { columns } from "~/components/Admin/Category/column";
 const { data: categories, status } = await useFetch("/api/admin/categories");
-console.log(categories, columns);
 </script>

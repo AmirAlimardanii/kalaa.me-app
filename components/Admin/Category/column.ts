@@ -22,7 +22,7 @@ export const columns: ColumnDef<Category>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const category = row.original;
-      return h("div", { class: "relative" }, h(actionMenu));
+      return h("div", { class: "relative ml-2" }, h(actionMenu));
     },
   },
 ];
