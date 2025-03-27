@@ -71,13 +71,17 @@ const onSubmit = form.handleSubmit(async (values) => {
     if (isEditing.value) {
       console.log("editing");
     } else {
-      console.log("inserting");
+      const data = await $fetch("/api/admin/categories", {
+        method: "POST",
+        body: values,
+      });
+      console.log(data, "data");
     }
     showMessage({
       title: toastMessage.value,
       variant: "default",
     });
-    navigateTo("/admin/categories");
+    await navigateTo("/admin/categories");
   } catch (error) {
     const err = handleError(error);
     showError(err);
