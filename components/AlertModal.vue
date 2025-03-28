@@ -1,16 +1,12 @@
 <template>
   <Modal
-    :isModalOpen="isAlertModalOpen"
+    :isModalOpen="isOpen"
     :title="title || 'Are you Sure?'"
     :description="description || 'This action cannot be undone'"
-    @closeModal="toggleAlertModal(false)"
+    @closeModal="emits('onClose')"
   >
     <div class="pt-6 space-x-2 flex justify-end items-center w-full">
-      <Button
-        :disabled="isLoading"
-        @click="toggleAlertModal(false)"
-        variant="outline"
-      >
+      <Button :disabled="isLoading" @click="emits('onClose')" variant="outline">
         Cancel
       </Button>
       <Button
@@ -28,17 +24,18 @@
 interface alertModal {
   title?: string;
   description?: string;
+  isOpen: boolean;
 }
 
 const props = defineProps<alertModal>();
-const emits = defineEmits(["onConfirm"]);
+const emits = defineEmits(["onConfirm", "onClose"]);
 
-const { isAlertModalOpen, toggleAlertModal, isLoading } = useStore();
+const { toggleAlertModal, isLoading } = useStore();
 
-const isModalOpen = computed(() => isAlertModalOpen.value);
+const isModalOpen = computed(() => props.isOpen);
 
 const handleConfirm = () => {
   emits("onConfirm");
-  toggleAlertModal(false);
+  emits("onClose");
 };
 </script>

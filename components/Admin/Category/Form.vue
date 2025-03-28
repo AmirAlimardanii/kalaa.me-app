@@ -8,7 +8,7 @@
           variant="destructive"
           size="sm"
           class="mx-2 !h-10"
-          @Click="toggleAlertModal(true)"
+          @Click="isAlertModalOpen = !isAlertModalOpen"
         >
           <Icon name="lucide:trash" class="w-4 h-4" />
         </Button>
@@ -36,15 +36,19 @@
       </div>
     </form>
   </div>
-  <AlertModal @onConfirm="deleteCategory" title="Delete Category" />
+  <AlertModal
+    @onConfirm="deleteCategory"
+    title="Delete Category"
+    :is-open="isAlertModalOpen"
+    @on-close="isAlertModalOpen = false"
+  />
 </template>
 
 <script setup lang="ts">
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 
-const { isLoading, showError, showMessage, toggleLoading, toggleAlertModal } =
-  useStore();
+const { isLoading, showError, showMessage, toggleLoading } = useStore();
 const route = useRoute();
 
 const title = ref("Edit Category");
@@ -52,6 +56,7 @@ const description = ref("Edit category");
 const toastMessage = ref("Category Updated");
 const action = ref("Save changes");
 const isEditing = ref(route.params.categoryId !== "new");
+const isAlertModalOpen = ref(false);
 
 const { data: currentCategory } = await useFetch(
   `/api/admin/categories/${route.params.categoryId}`

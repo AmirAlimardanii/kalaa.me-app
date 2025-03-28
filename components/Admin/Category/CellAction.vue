@@ -17,18 +17,24 @@
       </DropdownMenuItem>
       <DropdownMenuItem
         class="bg-red-500 hover:!bg-red-600"
-        @click="toggleAlertModal(true)"
+        @click="isAlertModalOpen = !isAlertModalOpen"
       >
         <Icon name="lucide:trash" class="mr-2 h-4 w-4 text-white" />
         <span class="mb-1 text-white">Delete</span>
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
-  <AlertModal @onConfirm="deleteCategory" title="Delete Category" />
+  <AlertModal
+    @onConfirm="deleteCategory"
+    title="Delete Category"
+    :is-open="isAlertModalOpen"
+    @onClose="isAlertModalOpen = false"
+  />
 </template>
 
 <script setup lang="ts">
-const { showMessage, showError, toggleLoading, toggleAlertModal } = useStore();
+const { showMessage, showError, toggleLoading } = useStore();
+const isAlertModalOpen = ref(false);
 interface Props {
   category: {
     id: string;
