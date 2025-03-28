@@ -78,7 +78,10 @@ const onSubmit = form.handleSubmit(async (values) => {
     toggleLoading(true);
 
     if (isEditing.value) {
-      console.log("editing");
+      await $fetch(`/api/admin/categories/${route.params.categoryId}`, {
+        method: "PATCH",
+        body: values,
+      });
     } else {
       const data = await $fetch("/api/admin/categories", {
         method: "POST",
@@ -86,6 +89,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       });
       console.log(data, "data");
     }
+
     showMessage({
       title: toastMessage.value,
       variant: "default",
