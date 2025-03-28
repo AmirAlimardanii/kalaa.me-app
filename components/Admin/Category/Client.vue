@@ -27,7 +27,6 @@ const { data: categories, status } = await useFetch("/api/admin/categories", {
       return {
         id: Category.id,
         name: Category.name,
-        value: Category.value,
         createdAt: useDateFormat(new Date(Category.createdAt), "MMMM D, YYYY")
           .value,
       };

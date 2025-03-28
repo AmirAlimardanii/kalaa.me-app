@@ -19,8 +19,18 @@
 </template>
 
 <script setup>
-import { columns } from "~/components/Admin/Category/column";
+import { columns } from "~/components/Admin/Color/column";
 const { data: colors, status } = await useFetch("/api/admin/colors", {
-  key: "categories",
+  key: "colors",
+  transform: (colors) => {
+    return colors.map((color) => {
+      return {
+        id: color.id,
+        name: color.name,
+        value: color.value,
+        createdAt: useDateFormat(new Date(color.createdAt), "DD-MM-YYYY").value,
+      };
+    });
+  },
 });
 </script>

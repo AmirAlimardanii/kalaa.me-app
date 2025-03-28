@@ -7,11 +7,11 @@
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
-      <DropdownMenuItem @click="navigateTo(`/admin/categories/${category.id}`)">
+      <DropdownMenuItem @click="navigateTo(`/admin/categories/${color.id}`)">
         <Icon name="lucide:pencil" class="mr-2 h-4 w-4" />
         <span class="mb-1">Edit</span>
       </DropdownMenuItem>
-      <DropdownMenuItem @click="copy(category.id)">
+      <DropdownMenuItem @click="copy(color.id)">
         <Icon name="lucide:copy" class="mr-2 h-4 w-4" />
         <span class="mb-1">copy ID</span>
       </DropdownMenuItem>
@@ -36,7 +36,7 @@
 const { showMessage, showError, toggleLoading } = useStore();
 const isAlertModalOpen = ref(false);
 interface Props {
-  category: {
+  color: {
     id: string;
   };
 }
@@ -55,14 +55,14 @@ const deleteCategory = async () => {
   try {
     toggleLoading(true);
 
-    await $fetch(`/api/admin/categories/${props.category.id}`, {
+    await $fetch(`/api/admin/categories/${props.color.id}`, {
       method: "DELETE",
     });
     showMessage({
       title: "Category Deleted",
       variant: "default",
     });
-    refreshNuxtData("categories");
+    refreshNuxtData("colors");
   } catch (error) {
     const err = handleError(error);
     showError(err);
