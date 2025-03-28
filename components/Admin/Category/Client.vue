@@ -22,5 +22,16 @@
 import { columns } from "~/components/Admin/Category/column";
 const { data: categories, status } = await useFetch("/api/admin/categories", {
   key: "categories",
+  transform: (categories) => {
+    return categories.map((Category) => {
+      return {
+        id: Category.id,
+        name: Category.name,
+        value: Category.value,
+        createdAt: useDateFormat(new Date(Category.createdAt), "MMMM D, YYYY")
+          .value,
+      };
+    });
+  },
 });
 </script>
