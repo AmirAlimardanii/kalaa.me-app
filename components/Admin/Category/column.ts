@@ -18,11 +18,11 @@ export const columns: ColumnDef<Category>[] = [
     header: "created At",
   },
   {
-    accessorKey: "actions",
+    id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
       const category = row.original;
-      return h("div", { class: "relative ml-2" }, h(actionMenu));
+      return h("div", { class: "relative ml-2" }, h(actionMenu, { category }));
     },
   },
 ];

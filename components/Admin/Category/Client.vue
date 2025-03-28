@@ -19,5 +19,7 @@
 
 <script setup>
 import { columns } from "~/components/Admin/Category/column";
-const { data: categories, status } = await useFetch("/api/admin/categories");
+const { data: categories, status } = await useFetch("/api/admin/categories", {
+  key: "categories",
+});
 </script>
