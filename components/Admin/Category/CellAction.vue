@@ -11,12 +11,12 @@
         <Icon name="lucide:copy" class="mr-2 h-4 w-4" />
         <span class="mb-1">copy ID</span>
       </DropdownMenuItem>
-      <DropdownMenuItem @click="toggleAlertModal(true)">
-        <!-- <span class="mb-1">Delete</span> -->
-        <Button variant="destructive">
-          <Icon name="lucide:trash" class="mr-2 h-4 w-4" />
-          Delete
-        </Button>
+      <DropdownMenuItem
+        class="bg-red-500 hover:!bg-red-600"
+        @click="toggleAlertModal(true)"
+      >
+        <Icon name="lucide:trash" class="mr-2 h-4 w-4 text-white" />
+        <span class="mb-1 text-white">Delete</span>
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
