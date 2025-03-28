@@ -7,13 +7,13 @@
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
-      <DropdownMenuItem @click="navigateTo(`/admin/categories/${color.id}`)">
+      <DropdownMenuItem @click="navigateTo(`/admin/colors/${color.id}`)">
         <Icon name="lucide:pencil" class="mr-2 h-4 w-4" />
         <span class="mb-1">Edit</span>
       </DropdownMenuItem>
-      <DropdownMenuItem @click="copy(color.id)">
+      <DropdownMenuItem @click="copy(color.value)">
         <Icon name="lucide:copy" class="mr-2 h-4 w-4" />
-        <span class="mb-1">copy ID</span>
+        <span class="mb-1">Copy Color</span>
       </DropdownMenuItem>
       <DropdownMenuItem
         class="bg-red-500 hover:!bg-red-600"
@@ -25,8 +25,8 @@
     </DropdownMenuContent>
   </DropdownMenu>
   <AlertModal
-    @onConfirm="deleteCategory"
-    title="Delete Category"
+    @onConfirm="deleteColor"
+    title="Delete Color"
     :is-open="isAlertModalOpen"
     @onClose="isAlertModalOpen = false"
   />
@@ -38,6 +38,7 @@ const isAlertModalOpen = ref(false);
 interface Props {
   color: {
     id: string;
+    value: string;
   };
 }
 
@@ -46,20 +47,20 @@ const props = defineProps<Props>();
 const copy = (id: string) => {
   navigator.clipboard.writeText(id);
   showMessage({
-    title: "Category Id Copied",
+    title: "Color Code Copied",
     variant: "default",
   });
 };
 
-const deleteCategory = async () => {
+const deleteColor = async () => {
   try {
     toggleLoading(true);
 
-    await $fetch(`/api/admin/categories/${props.color.id}`, {
+    await $fetch(`/api/admin/colors/${props.color.id}`, {
       method: "DELETE",
     });
     showMessage({
-      title: "Category Deleted",
+      title: "Color Deleted",
       variant: "default",
     });
     refreshNuxtData("colors");

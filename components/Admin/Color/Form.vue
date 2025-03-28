@@ -32,6 +32,20 @@
             <FormMessage />
           </FormItem>
         </FormField>
+        <FormField v-slot="{ componentField }" name="value">
+          <FormItem>
+            <FormLabel>Color Code</FormLabel>
+            <FormControl>
+              <Input
+                type="color"
+                placeholder="#000000"
+                v-bind="componentField"
+              />
+            </FormControl>
+            <FormDescription />
+            <FormMessage />
+          </FormItem>
+        </FormField>
       </div>
     </form>
   </div>

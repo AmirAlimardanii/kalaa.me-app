@@ -28,7 +28,8 @@ const { data: colors, status } = await useFetch("/api/admin/colors", {
         id: color.id,
         name: color.name,
         value: color.value,
-        createdAt: useDateFormat(new Date(color.createdAt), "DD-MM-YYYY").value,
+        createdAt: useDateFormat(new Date(color.createdAt), "MMMM D, YYYY")
+          .value,
       };
     });
   },
