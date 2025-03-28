@@ -11,6 +11,7 @@
     <DataTable
       class="mt-4"
       v-if="status !== 'pending'"
+      column-to-search="name"
       :data="categories"
       :columns="columns"
     />
