@@ -57,6 +57,15 @@ const { data: currentCategory } = await useFetch(
   `/api/admin/categories/${route.params.categoryId}`
 );
 
+watchEffect(() => {
+  if (!currentCategory.value) {
+    title.value = "Create Category";
+    description.value = "Create a new category";
+    toastMessage.value = "Category Created";
+    action.value = "Create Category";
+  }
+});
+
 const formSchema = toTypedSchema(categorySchema);
 
 const form = useForm({
@@ -94,8 +103,9 @@ const deleteCategory = async () => {
   try {
     toggleLoading(true);
 
-    console.log("category deleted");
-
+    await $fetch(`/api/admin/categories/${route.params.categoryId}`, {
+      method: "DELETE",
+    });
     showMessage({
       title: "Category Deleted",
       variant: "default",
