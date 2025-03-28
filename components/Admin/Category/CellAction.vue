@@ -7,6 +7,10 @@
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
+      <DropdownMenuItem @click="navigateTo(`/admin/categories/${category.id}`)">
+        <Icon name="lucide:pencil" class="mr-2 h-4 w-4" />
+        <span class="mb-1">Edit</span>
+      </DropdownMenuItem>
       <DropdownMenuItem @click="copy(category.id)">
         <Icon name="lucide:copy" class="mr-2 h-4 w-4" />
         <span class="mb-1">copy ID</span>
