@@ -12,11 +12,10 @@
         >
           <Icon name="lucide:trash" class="w-4 h-4" />
         </Button>
-        <NuxtLink to="/admin/categories/new">
-          <Button @click="onSubmit" :disabled="isLoading" size="lg">
-            {{ action }}
-          </Button>
-        </NuxtLink>
+
+        <Button @click="onSubmit" :disabled="isLoading" size="lg">
+          {{ action }}
+        </Button>
       </div>
     </div>
     <Separator class="my-4" />
@@ -27,7 +26,7 @@
           <FormItem>
             <FormLabel>Name</FormLabel>
             <FormControl>
-              <Input placeholder="category name" v-bind="componentField" />
+              <Input placeholder="Color name" v-bind="componentField" />
             </FormControl>
             <FormDescription />
             <FormMessage />
@@ -37,8 +36,8 @@
     </form>
   </div>
   <AlertModal
-    @onConfirm="deleteCategory"
-    title="Delete Category"
+    @onConfirm="deleteColor"
+    title="Delete Color"
     :is-open="isAlertModalOpen"
     @on-close="isAlertModalOpen = false"
   />
@@ -51,32 +50,32 @@ import { useForm } from "vee-validate";
 const { isLoading, showError, showMessage, toggleLoading } = useStore();
 const route = useRoute();
 
-const title = ref("Edit Category");
-const description = ref("Edit category");
-const toastMessage = ref("Category Updated");
+const title = ref("Edit Color");
+const description = ref("Edit Color");
+const toastMessage = ref("Color Updated");
 const action = ref("Save changes");
-const isEditing = ref(route.params.categoryId !== "new");
+const isEditing = ref(route.params.colorId !== "new");
 const isAlertModalOpen = ref(false);
 
 //@ts-ignore
-const { data: currentCategory } = await useFetch(() =>
-  isEditing.value ? `/api/admin/categories/${route.params.categoryId}` : null
+const { data: currentColor } = await useFetch(() =>
+  isEditing.value ? `/api/admin/colors/${route.params.colorId}` : null
 );
 
 watchEffect(() => {
-  if (!currentCategory.value) {
-    title.value = "Create Category";
-    description.value = "Create a new category";
-    toastMessage.value = "Category Created";
-    action.value = "Create Category";
+  if (!currentColor.value) {
+    title.value = "Create Color";
+    description.value = "Create a new Color";
+    toastMessage.value = "Color Created";
+    action.value = "Create Color";
   }
 });
 
-const formSchema = toTypedSchema(categorySchema);
+const formSchema = toTypedSchema(colorSchema);
 
 const form = useForm({
   validationSchema: formSchema,
-  initialValues: currentCategory.value || { name: "" },
+  initialValues: currentColor.value || { name: "", value: "#000000" },
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
@@ -84,12 +83,12 @@ const onSubmit = form.handleSubmit(async (values) => {
     toggleLoading(true);
 
     if (isEditing.value) {
-      await $fetch(`/api/admin/categories/${route.params.categoryId}`, {
+      await $fetch(`/api/admin/colors/${route.params.colorId}`, {
         method: "PATCH",
         body: values,
       });
     } else {
-      const data = await $fetch("/api/admin/categories", {
+      const data = await $fetch("/api/admin/colors", {
         method: "POST",
         body: values,
       });
@@ -100,7 +99,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       title: toastMessage.value,
       variant: "default",
     });
-    await navigateTo("/admin/categories");
+    await navigateTo("/admin/colors");
   } catch (error) {
     const err = handleError(error);
     showError(err);
@@ -109,18 +108,18 @@ const onSubmit = form.handleSubmit(async (values) => {
   }
 });
 
-const deleteCategory = async () => {
+const deleteColor = async () => {
   try {
     toggleLoading(true);
 
-    await $fetch(`/api/admin/categories/${route.params.categoryId}`, {
+    await $fetch(`/api/admin/colors/${route.params.colorId}`, {
       method: "DELETE",
     });
     showMessage({
-      title: "Category Deleted",
+      title: "Color Deleted",
       variant: "default",
     });
-    navigateTo("/admin/categories");
+    navigateTo("/admin/colors");
   } catch (error) {
     const err = handleError(error);
     showError(err);
