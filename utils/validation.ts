@@ -27,3 +27,12 @@ export const colorSchema = z.object({
     .min(1, { message: "color value must be at least 2 characters long" })
     .default("#000000"),
 });
+
+export const sizeSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "size name must be at least 2 characters long" }),
+  value: z
+    .string()
+    .min(1, { message: "size value must be at least 2 characters long" }),
+});
