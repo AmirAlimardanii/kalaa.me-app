@@ -36,3 +36,21 @@ export const sizeSchema = z.object({
     .string()
     .min(1, { message: "size value must be at least 2 characters long" }),
 });
+
+export const productSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "product name must be at least 2 characters long" }),
+  images: z
+    .object({
+      url: z.string(),
+    })
+    .array()
+    .min(1, { message: "Product must have at least one image" }),
+  price: z.coerce.number().min(2, { message: "product price is required " }),
+  categoryId: z.string().min(2, { message: "product Category is required " }),
+  colorId: z.string().min(2, { message: "product Color is required " }),
+  sizeId: z.string().min(2, { message: "product Size is required " }),
+  isFeatured: z.boolean().default(false).optional(),
+  isArchived: z.boolean().default(false).optional(),
+});
