@@ -143,10 +143,7 @@
             class="flex flex-row items-start gap-x-3 space-y-0 rounded-md border p-4 shadow"
           >
             <FormControl>
-              <Checkbox
-                :model-value="value"
-                @update:model-value="handleChange"
-              />
+              <Checkbox :checked="value" @update:checked="handleChange" />
             </FormControl>
             <div class="space-y-1 leading-none">
               <FormLabel>Archived</FormLabel>
@@ -162,10 +159,7 @@
             class="flex flex-row items-start gap-x-3 space-y-0 rounded-md border p-4 shadow"
           >
             <FormControl>
-              <Checkbox
-                :model-value="value"
-                @update:model-value="handleChange"
-              />
+              <Checkbox :checked="value" @update:checked="handleChange" />
             </FormControl>
             <div class="space-y-1 leading-none">
               <FormLabel>Featured</FormLabel>
@@ -244,12 +238,11 @@ const form = useForm({
 const onSubmit = form.handleSubmit(async (values) => {
   try {
     toggleLoading(true);
-
     if (isEditing.value) {
-      // await $fetch(`/api/admin/products/${route.params.productId}`, {
-      //   method: "PATCH",
-      //   body: values,
-      // });
+      await $fetch(`/api/admin/products/${route.params.productId}`, {
+        method: "PATCH",
+        body: values,
+      });
     } else {
       const data = await $fetch("/api/admin/products", {
         method: "POST",
@@ -270,21 +263,21 @@ const onSubmit = form.handleSubmit(async (values) => {
 });
 
 const deleteProduct = async () => {
-  //   try {
-  //     toggleLoading(true);
-  //     await $fetch(`/api/admin/products/${route.params.productId}`, {
-  //       method: "DELETE",
-  //     });
-  //     showMessage({
-  //       title: "Product Deleted",
-  //       variant: "default",
-  //     });
-  //     navigateTo("/admin/products");
-  //   } catch (error) {
-  //     const err = handleError(error);
-  //     showError(err);
-  //   } finally {
-  //     toggleLoading(false);
-  //   }
+  try {
+    toggleLoading(true);
+    await $fetch(`/api/admin/products/${route.params.productId}`, {
+      method: "DELETE",
+    });
+    showMessage({
+      title: "Product Deleted",
+      variant: "default",
+    });
+    navigateTo("/admin/products");
+  } catch (error) {
+    const err = handleError(error);
+    showError(err);
+  } finally {
+    toggleLoading(false);
+  }
 };
 </script>
