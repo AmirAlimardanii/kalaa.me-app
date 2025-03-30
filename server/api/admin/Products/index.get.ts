@@ -4,6 +4,12 @@ export default defineEventHandler(async (event) => {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      images: true,
+      category: true,
+      color: true,
+      size: true,
+    },
   });
 
   return products;
