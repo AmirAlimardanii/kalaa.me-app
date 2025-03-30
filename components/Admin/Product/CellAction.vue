@@ -38,7 +38,6 @@ const isAlertModalOpen = ref(false);
 interface Props {
   product: {
     id: string;
-    value: string;
     name: string;
   };
 }
