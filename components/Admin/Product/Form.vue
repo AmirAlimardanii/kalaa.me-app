@@ -30,6 +30,10 @@
                 (url) =>
                   resetField({ value: [...componentField.modelValue, { url }] })
               "
+              @on-remove="
+                (url : any) =>
+                  resetField({ value: [...componentField.modelValue.filter((img : Image) => img.url !== url)] })
+              "
               :image-id="componentField.modelValue.map((img : Image) => img.url) || []"
               :formats="['png', 'jpeg', 'jpg', 'gif']"
             />
