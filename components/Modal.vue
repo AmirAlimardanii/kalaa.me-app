@@ -1,5 +1,5 @@
 <template>
-  <Dialog :open="props.isModalOpen">
+  <Dialog :open="props.isModalOpen" @update:open="emits('closeModal')">
     <DialogContent>
       <DialogHeader>
         <DialogTitle v-if="title">{{ title }}</DialogTitle>
