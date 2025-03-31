@@ -13,7 +13,15 @@
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger as-child>
-                  <Button size="icon" class="rounded-full">
+                  <Button
+                    @click.stop="
+                      () => {
+                        onOpen(data);
+                      }
+                    "
+                    size="icon"
+                    class="rounded-full"
+                  >
                     <Icon name="lucide:expand" class="h-4 w-4 text-white" />
                   </Button>
                 </TooltipTrigger>
@@ -34,11 +42,15 @@
       </CardContent>
     </Card>
   </div>
+  <ProductModal />
 </template>
 
 <script setup lang="ts">
 import type { ProductCard } from "~/types";
 import Button from "../ui/button/Button.vue";
+import usePreviewModal from "~/composables/usePreviewModal";
+
+const { onOpen } = usePreviewModal();
 
 defineProps<{
   data: ProductCard;
