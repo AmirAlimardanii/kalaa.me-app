@@ -38,7 +38,7 @@
 
           <div class="mt-2">${{ data.price }}</div>
         </div>
-        <Button variant="secondary" class="mt-4 w-`full"> Add to cart </Button>
+        <Button variant="secondary" class="mt-4 w-full"> Add to cart </Button>
       </CardContent>
     </Card>
   </div>
