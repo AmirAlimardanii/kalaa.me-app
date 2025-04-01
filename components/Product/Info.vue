@@ -29,8 +29,7 @@
         class="rounded-full"
         @click.stop="
           () => {
-            // addItem(data);
-            console.log(data);
+            addItem(data);
           }
         "
       >
@@ -43,7 +42,7 @@
 
 <script setup lang="ts">
 import type { ProductCard } from "~/types";
-// const { addItem } = useCart();
+const { addItem } = useCart();
 
 interface InfoProps {
   data: ProductCard;

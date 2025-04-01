@@ -40,7 +40,14 @@
 
           <div class="mt-2">${{ data.price }}</div>
         </div>
-        <Button variant="secondary" class="mt-4 w-full"> Add to cart </Button>
+        <Button
+          type="button"
+          @click="addItem(data)"
+          variant="secondary"
+          class="mt-4 w-full"
+        >
+          Add to cart
+        </Button>
       </CardContent>
     </Card>
   </div>
@@ -57,6 +64,7 @@ import usePreviewModal from "~/composables/usePreviewModal";
 
 const isModalOpen = ref(false);
 const { onOpen } = usePreviewModal();
+const { addItem } = useCart();
 
 defineProps<{
   data: ProductCard;
