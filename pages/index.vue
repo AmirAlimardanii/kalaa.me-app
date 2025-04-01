@@ -1,19 +1,27 @@
 <template>
-  <div>home page</div>
-  <Button @click="logout">Log Out</Button>
-  <p>{{ user }}</p>
+  <Hero />
+  <div class="mx-auto max-w-5xl py-16 sm:py-32">
+    <div class="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
+      <ProductList
+        title="Products List"
+        :items="product"
+        :is-loading="status === 'pending'"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
+import type { ProductCard } from "~/types";
+
 definePageMeta({
   middleware: "auth",
 });
-const { user, clear } = useUserSession();
 
-const logout = async () => {
-  await clear();
-  navigateTo("/auth/login");
-};
+const { data: product, status } = await useFetch<ProductCard[]>(
+  "/api/admin/products",
+  {
+    lazy: true,
+  }
+);
 </script>
-
-<style scoped></style>
