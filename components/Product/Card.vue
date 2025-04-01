@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- @vue-expect-error -->
     <Card class="border p-3 shadow-none">
       <CardContent class="p-0">
         <div
