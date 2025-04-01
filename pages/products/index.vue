@@ -4,6 +4,11 @@
       <div class="px-4 pb-24">
         <div class="lg:grid lg:grid-cols-5 lg:gap-x-8">
           <!-- Mobile filter -->
+          <MobileFilter
+            :colors="colors"
+            :sizes="sizes"
+            :categories="categories"
+          />
           <div class="hidden lg:block">
             <!-- filters -->
             <Filter valueKey="sizeId" name="Sizes" :data="sizes" />
@@ -50,6 +55,7 @@ import type { ProductCard } from "~/types";
 import Filter from "~/components/ui/Filter.vue";
 import NoResults from "~/components/ui/NoResults.vue";
 import CardLoader from "~/components/ui/CardLoader.vue";
+import MobileFilter from "~/components/ui/MobileFilter.vue";
 
 const { data: products, status } = await useFetch<ProductCard[]>(
   "/api/admin/products",
