@@ -66,7 +66,7 @@
         <NuxtLink to="/cart">
           <Button class="relative rounded-full px-4 h-10 -pb-1">
             <Icon name="lucide:shopping-bag" class="w-4 h-4 mx-2" />
-            (5)
+            ({{ items && items.length ? items.length : 0 }})
           </Button>
         </NuxtLink>
       </nav>
@@ -76,6 +76,7 @@
 
 <script setup lang="ts">
 const { user, clear } = useUserSession();
+const { items } = useCart();
 const logout = async () => {
   await clear();
   navigateTo("/auth/login");
