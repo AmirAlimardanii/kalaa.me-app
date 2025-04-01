@@ -17,6 +17,7 @@
                     @click.stop="
                       () => {
                         onOpen(data);
+                        isModalOpen = true;
                       }
                     "
                     size="icon"
@@ -42,7 +43,10 @@
       </CardContent>
     </Card>
   </div>
-  <ProductModal />
+  <ProductModal
+    :is-modal-open="isModalOpen"
+    @close-modal="isModalOpen = false"
+  />
 </template>
 
 <script setup lang="ts">
@@ -50,6 +54,7 @@ import type { ProductCard } from "~/types";
 import Button from "../ui/button/Button.vue";
 import usePreviewModal from "~/composables/usePreviewModal";
 
+const isModalOpen = ref(false);
 const { onOpen } = usePreviewModal();
 
 defineProps<{

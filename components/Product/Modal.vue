@@ -1,5 +1,5 @@
 <template>
-  <Modal :is-modal-open="isOpen" @close-modal="onClose">
+  <Modal :is-modal-open="isModalOpen" @close-modal="closeModal">
     <div
       class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
       v-if="selectedProduct"
@@ -36,7 +36,19 @@
 <script setup lang="ts">
 import usePreviewModal from "~/composables/usePreviewModal";
 
-const { isOpen, onClose, onOpen, selectedProduct } = usePreviewModal();
+const { onClose, selectedProduct } = usePreviewModal();
+
+interface ProductCard {
+  isModalOpen: boolean;
+}
+
+defineProps<ProductCard>();
+const emits = defineEmits(["closeModal"]);
+
+const closeModal = () => {
+  emits("closeModal");
+  onClose();
+};
 </script>
 
 <style>
