@@ -57,10 +57,21 @@ import NoResults from "~/components/ui/NoResults.vue";
 import CardLoader from "~/components/ui/CardLoader.vue";
 import MobileFilter from "~/components/ui/MobileFilter.vue";
 
+const route = useRoute();
+
+const colorId = computed(() => route.query.colorId);
+const sizeId = computed(() => route.query.sizeId);
+const categoryId = computed(() => route.query.categoryId);
+
 const { data: products, status } = await useFetch<ProductCard[]>(
   "/api/admin/products",
   {
     lazy: true,
+    query: {
+      colorId: colorId,
+      sizeId: sizeId,
+      categoryId: categoryId,
+    },
   }
 );
 
