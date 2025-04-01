@@ -14,6 +14,7 @@
       </div>
     </div>
     <Button
+      :disabled="isLoading"
       @click="onCheckout"
       type="button"
       v-if="cartItems.length"
@@ -26,6 +27,7 @@
 <script setup lang="ts">
 import Button from "../ui/button/Button.vue";
 
+const { isLoading, toggleLoading, showError } = useStore();
 const { items: cartItems, removeAllItems } = useCart();
 
 const totalPrice = computed(() => {
@@ -35,7 +37,20 @@ const totalPrice = computed(() => {
 });
 
 const onCheckout = async () => {
-  const checkoutItems = cartItems.value.map((item) => item.id);
-  console.log(checkoutItems);
+  try {
+    toggleLoading(true);
+    const checkoutItems = cartItems.value.map((item) => item.id);
+    const data = await $fetch("/api/checkout", {
+      method: "POST",
+      body: checkoutItems,
+    });
+    console.log(data);
+  } catch (error) {
+    const err = handleError(error);
+    showError(err);
+  } finally {
+    toggleLoading(false);
+    removeAllItems();
+  }
 };
 </script>
