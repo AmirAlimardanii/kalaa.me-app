@@ -52,6 +52,14 @@
           </CardContent>
         </Card>
       </div>
+      <Card v-if="data.graphData" class="w-full">
+        <CardHeader>
+          <CardTitle>Overview</CardTitle>
+        </CardHeader>
+        <CardContent class="pl-2">
+          <Overview :data="data?.graphData" />
+        </CardContent>
+      </Card>
     </div>
   </div>
 </template>
