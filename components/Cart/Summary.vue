@@ -27,7 +27,8 @@
 <script setup lang="ts">
 import Button from "../ui/button/Button.vue";
 
-const { isLoading, toggleLoading, showError } = useStore();
+const route = useRoute();
+const { isLoading, toggleLoading, showError, showMessage } = useStore();
 const { items: cartItems, removeAllItems } = useCart();
 
 const totalPrice = computed(() => {
@@ -45,12 +46,25 @@ const onCheckout = async () => {
       body: checkoutItems,
     });
     console.log(data);
+    if (data) {
+      window.location.href = data;
+    }
   } catch (error) {
     const err = handleError(error);
     showError(err);
   } finally {
     toggleLoading(false);
     removeAllItems();
+    return;
   }
 };
+
+onMounted(() => {
+  if (route.query.success) {
+    showMessage({ title: "Checkout Success", variant: "default" });
+  }
+  if (route.query.canceled) {
+    showMessage({ title: "something went wrong", variant: "default" });
+  }
+});
 </script>
