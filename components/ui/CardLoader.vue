@@ -4,7 +4,7 @@
       <div class="grid gap-4 p-2 w-full">
         <div class="relative w-full flex justify-center">
           <Skeleton
-            class="h-[200px] w-[200px] rounded-md bg-gray-300 dark:bg-gray-700 animate-pulse"
+            class="h-[200px] w-[90%] rounded-md bg-gray-300 dark:bg-gray-700 animate-pulse"
           />
         </div>
 

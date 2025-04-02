@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- @vue-expect-error -->
     <Card class="border p-3 shadow-none">
       <CardContent class="p-0">
         <div
@@ -17,6 +18,7 @@
                     @click.stop="
                       () => {
                         onOpen(data);
+                        isModalOpen = true;
                       }
                     "
                     size="icon"
@@ -38,11 +40,21 @@
 
           <div class="mt-2">${{ data.price }}</div>
         </div>
-        <Button variant="secondary" class="mt-4 w-`full"> Add to cart </Button>
+        <Button
+          type="button"
+          @click="addItem(data)"
+          variant="secondary"
+          class="mt-4 w-full"
+        >
+          Add to cart
+        </Button>
       </CardContent>
     </Card>
   </div>
-  <ProductModal />
+  <ProductModal
+    :is-modal-open="isModalOpen"
+    @close-modal="isModalOpen = false"
+  />
 </template>
 
 <script setup lang="ts">
@@ -50,7 +62,9 @@ import type { ProductCard } from "~/types";
 import Button from "../ui/button/Button.vue";
 import usePreviewModal from "~/composables/usePreviewModal";
 
+const isModalOpen = ref(false);
 const { onOpen } = usePreviewModal();
+const { addItem } = useCart();
 
 defineProps<{
   data: ProductCard;

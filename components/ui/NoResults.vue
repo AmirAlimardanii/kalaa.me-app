@@ -5,7 +5,7 @@
     <div class="flex items-center justify-center text-neutral-500">
       No results found.
     </div>
-    <NuxtLink to="/">
+    <NuxtLink to="/products">
       <Button variant="outline">Clear filter</Button>
     </NuxtLink>
   </div>

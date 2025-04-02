@@ -13,7 +13,7 @@ const state = reactive<PreviewModal>({
 export default () => {
   const { isOpen, selectedProduct } = toRefs(state);
   const onOpen = (payload: ProductCard) => {
-    state.isOpen = true;
+    // state.isOpen = true;
     state.selectedProduct = payload;
   };
 
