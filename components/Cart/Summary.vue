@@ -54,7 +54,6 @@ const onCheckout = async () => {
     showError(err);
   } finally {
     toggleLoading(false);
-    removeAllItems();
     return;
   }
 };
