@@ -3,7 +3,7 @@
     <h3 class="font-bold text-3xl">{{ title }}</h3>
     <!-- No Product -->
     <NoResults v-if="!items?.length" />
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-rows-1 md:grid-cols-3 gap-4">
       <!-- Products -->
       <template v-if="!isLoading">
         <ProductCard v-for="item in items" :key="item.id" :data="item" />

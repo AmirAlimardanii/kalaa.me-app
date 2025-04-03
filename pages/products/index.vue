@@ -36,11 +36,7 @@
               </template>
               <!-- Loading state -->
               <template v-if="status === 'pending'">
-                <div
-                  class="grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2"
-                >
-                  <CardLoader v-for="i in 6" :key="i" />
-                </div>
+                <CardLoader v-for="i in 5" :key="i" />
               </template>
             </div>
           </div>
